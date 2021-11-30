@@ -38,30 +38,7 @@ const countriescomponent = props => {
 
   useEffect(() => {
     return setMasterDataSource(propData), setFilteredDataSource(propData);
-  });
-
-  const searchFilterFunction = text => {
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = masterDataSource.filter(function (item) {
-        const itemData = item.Country
-          ? item.Country.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredDataSource(newData);
-      setSearch(text);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredDataSource(masterDataSource);
-      setSearch(text);
-    }
-  };
+  }, []);
 
   const ItemView = ({item, index}) => {
     const CountryCode = item.ISO2.toLowerCase();
@@ -89,12 +66,12 @@ const countriescomponent = props => {
     );
   };
 
-  console.log('filteredDataSource', filteredDataSource);
+  console.log('propsdata', propData);
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textInputStyle}
-        onChangeText={text => searchFilterFunction(text)}
+        onChangeText={text => setSearch(text)}
         value={search}
         underlineColorAndroid="transparent"
         placeholderTextColor={colors.GREY}
@@ -102,7 +79,12 @@ const countriescomponent = props => {
       />
 
       <FlatList
-        data={filteredDataSource}
+        data={propData.filter(item => {
+          // console.log('list item', item.Country);
+          // return true;
+
+          return item.Country.includes(search);
+        })}
         keyExtractor={(item, index) => index.toString()}
         // ItemSeparatorComponent={ItemSeparatorView}
         renderItem={ItemView}
