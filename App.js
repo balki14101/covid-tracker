@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {Provider as StoreProvider} from 'react-redux';
 import store from './src/store';
+import splashscreen from './src/screen/splashscreen';
 import home from './src/screen/home';
 import countrystats from './src/screen/countrystats';
 
@@ -18,6 +19,11 @@ const App = () => {
       <PaperProvider>
         <NavigationContainer>
           <Stack.Navigator>
+            <Stack.Screen
+              name="splashscreen"
+              component={splashscreen}
+              options={{headerShown: false}}
+            />
             <Stack.Screen
               name="home"
               component={home}

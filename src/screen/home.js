@@ -13,6 +13,9 @@ import death from '../assets/coffin-gradient.png';
 import moment from 'moment';
 import {FONT_SIZE_EXTRA_LARGE, FONT_SIZE_MEDIUM} from '../constants/fontsize';
 import {ScrollView} from 'react-native-gesture-handler';
+import {Height, Width} from '../constants/dimension';
+
+import Logo from '../assets/Vector.png';
 
 const home = () => {
   const {global, countries} = useSelector(state => {
@@ -69,32 +72,39 @@ const home = () => {
     dispatch(fetchCountries());
   }, []);
   return (
-    <ScrollView>
-      <View style={{flex: 1, backgroundColor: colors.WHITE, padding: 12}}>
-        <Text
-          style={{
-            color: colors.LIGHT_BLUE,
-            fontSize: FONT_SIZE_EXTRA_LARGE,
-            fontWeight: '500',
-            marginVertical: 4,
-          }}>
-          {'Global'}
-        </Text>
+    <View style={{flex: 1, backgroundColor: colors.BLACK}}>
+      <Image
+        source={Logo}
+        style={{height: Height / 16, width: Width, marginVertical: 10}}
+        resizeMode="center"
+      />
+      <ScrollView>
+        <View style={{padding: 12}}>
+          <Text
+            style={{
+              color: colors.LIGHT_BLUE,
+              fontSize: FONT_SIZE_EXTRA_LARGE,
+              fontWeight: '500',
+              marginVertical: 4,
+            }}>
+            {'Global'}
+          </Text>
 
-        <Globalcomponent data={globalData} />
-        <Text
-          style={{
-            color: colors.LIGHT_BLUE,
-            fontSize: FONT_SIZE_EXTRA_LARGE,
-            fontWeight: '500',
-            marginVertical: 4,
-          }}>
-          {'Countries'}
-        </Text>
+          <Globalcomponent data={globalData} />
+          <Text
+            style={{
+              color: colors.LIGHT_BLUE,
+              fontSize: FONT_SIZE_EXTRA_LARGE,
+              fontWeight: '500',
+              marginVertical: 4,
+            }}>
+            {'Countries'}
+          </Text>
 
-        <Countriescomponent data={countries} />
-      </View>
-    </ScrollView>
+          <Countriescomponent data={countries} />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
