@@ -4,26 +4,34 @@ import {useSelector, useDispatch} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Provider} from 'react-redux';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {Provider as StoreProvider} from 'react-redux';
 import store from './src/store';
 import home from './src/screen/home';
+import countrystats from './src/screen/countrystats';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="home"
-            component={home}
-            options={{headerShown: false}}
-          />
-          {/* <Stack.Screen name="home" component={Menu} /> */}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <StoreProvider store={store}>
+      <PaperProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="home"
+              component={home}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="countrystats"
+              component={countrystats}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </StoreProvider>
   );
 };
 

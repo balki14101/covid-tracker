@@ -12,7 +12,7 @@ import {
 } from '../../constants/fontsize';
 
 const globalcomponent = ({data}) => {
-  console.log(data);
+  //   console.log(data);
 
   // const {data} = props
   return (
@@ -22,9 +22,10 @@ const globalcomponent = ({data}) => {
         flexWrap: 'wrap',
         justifyContent: 'space-between',
       }}>
-      {data.map(item => {
+      {data.map((item, index) => {
         return (
           <View
+            key={String(index)}
             style={{
               backgroundColor: item.bgColor,
               height: Height / 8,

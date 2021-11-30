@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, Image} from 'react-native';
-import {fetchSummary} from '../reducer/covidtracker';
+import {fetchSummary, fetchCountries} from '../reducer/covidtracker';
 import {useSelector, useDispatch} from 'react-redux';
 import Globalcomponent from './homecomponent/globalcomponent';
 import Countriescomponent from './homecomponent/countriescomponent';
@@ -23,7 +23,7 @@ const home = () => {
   });
 
   const date = moment(global.Date).format('MMM Do YY');
-  const categories = [
+  const globalData = [
     {
       title: 'Total Cases',
       icon: totalcases,
@@ -52,7 +52,7 @@ const home = () => {
       date: date,
     },
     {
-      title: 'Active Cases',
+      title: 'New Death',
       icon: death,
 
       bgColor: colors.GREY_VARIANT,
@@ -66,6 +66,7 @@ const home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchSummary());
+    dispatch(fetchCountries());
   }, []);
   return (
     <ScrollView>
@@ -80,7 +81,7 @@ const home = () => {
           {'Global'}
         </Text>
 
-        <Globalcomponent data={categories} />
+        <Globalcomponent data={globalData} />
         <Text
           style={{
             color: colors.LIGHT_BLUE,
