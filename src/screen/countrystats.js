@@ -7,6 +7,7 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
+//colors
 import colors from '../constants/colors';
 
 import {DataTable} from 'react-native-paper';
@@ -15,11 +16,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import {fetchCountrystats} from '../reducer/covidtracker';
 import {useNavigation} from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
 import StatsComponent from './homecomponent/globalcomponent';
-
+//fontSize
 import {
   FONT_SIZE_EXTRA_LARGE,
   FONT_SIZE_NORMAL,
@@ -28,14 +28,19 @@ import {
   FONT_SIZE_EXTRA_SMALL,
 } from '../constants/fontsize';
 
+//icons
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import totalcases from '../assets/covid-white-1.png';
 import recovery from '../assets/vaccine-white.png';
 import newcases from '../assets/Vector-1.png';
 import death from '../assets/coffin-gradient.png';
-
+//Dimensions
 import {Height, Width} from '../constants/dimension';
+
 const countrystats = props => {
   // console.log('country stats props', props);
+
   const slug = props.route.params.Slug;
   const CountryCode = props.route.params.ISO2.toLowerCase();
 
@@ -46,6 +51,7 @@ const countrystats = props => {
       countryStats: state.covidtracker.countryStats,
     };
   });
+
   console.log('countryStats', countryStats);
   var latestCount = null;
 
@@ -103,8 +109,6 @@ const countrystats = props => {
     },
   ];
 
-  // console.log('countryStats', countryStats);
-
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -112,7 +116,6 @@ const countrystats = props => {
   // }, []);
 
   return (
-    // <View style={{flex: 1, backgroundColor: colors.WHITE}}>
     <ImageBackground
       source={{
         uri: `https://flagcdn.com/256x192/${CountryCode}.png`,
@@ -133,28 +136,10 @@ const countrystats = props => {
           source={{
             uri: `https://flagcdn.com/256x192/${CountryCode}.png`,
           }}
-          style={{
-            height: Height / 6,
-            width: Width / 2,
-            alignSelf: 'center',
-            marginVertical: 8,
-          }}
+          style={styles.flagImage}
           // resizeMode="center"
         />
-        <Text
-          style={{
-            color: colors.BLACK,
-            textAlign: 'center',
-            alignSelf: 'center',
-            fontSize: FONT_SIZE_EXTRA_LARGE,
-            fontWeight: '500',
-            backgroundColor: '#54C5F7',
-            marginBottom: 16,
-            width: Width / 2,
-            borderRadius: 8,
-          }}>
-          {latestCount.Country}
-        </Text>
+        <Text style={styles.countryName}>{latestCount.Country}</Text>
         {/* <Text style={{color: colors.BLACK}}>{slug}</Text> */}
 
         <StatsComponent data={countryData} />
@@ -185,7 +170,6 @@ const countrystats = props => {
         </DataTable> */}
       </View>
     </ImageBackground>
-    // </View>
   );
 };
 
@@ -194,5 +178,22 @@ export default countrystats;
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
+  },
+  flagImage: {
+    height: Height / 6,
+    width: Width / 2,
+    alignSelf: 'center',
+    marginVertical: 8,
+  },
+  countryName: {
+    color: colors.BLACK,
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontSize: FONT_SIZE_EXTRA_LARGE,
+    fontWeight: '500',
+    backgroundColor: '#54C5F7',
+    marginBottom: 16,
+    width: Width / 2,
+    borderRadius: 8,
   },
 });

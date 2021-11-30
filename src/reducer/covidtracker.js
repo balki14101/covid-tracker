@@ -27,12 +27,21 @@ const initialState = {
   global: [],
   countries: [],
   countryStats: [],
+  filteredDataSource: [],
+  masterDataSource: [],
 };
 
 export const covidtrackerslice = createSlice({
   name: 'covidtracker',
   initialState,
-  reducers: {},
+  reducers: {
+    setFilteredDataSource: (state, action) => {
+      state.filteredDataSource = action.payload;
+    },
+    setMasterDataSource: (state, action) => {
+      state.masterDataSource = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(fetchSummary.fulfilled, (state, action) => {
       state.global = action.payload.Global;
@@ -48,5 +57,7 @@ export const covidtrackerslice = createSlice({
     });
   },
 });
+export const {setFilteredDataSource, setMasterDataSource} =
+  covidtrackerslice.actions;
 
 export default covidtrackerslice.reducer;

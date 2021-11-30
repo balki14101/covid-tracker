@@ -12,7 +12,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCountrystats} from '../../reducer/covidtracker';
+//colors
 import colors from '../../constants/colors';
+//dimensions
 import {Height, Width} from '../../constants/dimension';
 /*
 const countriescomponent = data => {
@@ -92,16 +94,6 @@ const countriescomponent = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //   fetch('https://jsonplaceholder.typicode.com/posts')
-    //     .then(response => response.json())
-    //     .then(responseJson => {
-    //       setFilteredDataSource(responseJson);
-    //       setMasterDataSource(responseJson);
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-
     setMasterDataSource(props.data);
     setFilteredDataSource(props.data);
   }, []);
@@ -113,10 +105,8 @@ const countriescomponent = props => {
       // Filter the masterDataSource
       // Update FilteredDataSource
       const newData = masterDataSource.filter(function (item) {
-        const itemData = item.Country
-          ? item.Country.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
+        const itemData = item.Country;
+        const textData = text;
         return itemData.indexOf(textData) > -1;
       });
       setFilteredDataSource(newData);
@@ -134,15 +124,6 @@ const countriescomponent = props => {
 
     return (
       // Flat List Item
-      // <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-      //   {item.Country.toUpperCase()}
-      // </Text>
-      // <View
-      //   style={{
-      //     flexDirection: 'row',
-      //     flexWrap: 'wrap',
-      //     justifyContent: 'space-between',
-      //   }}>
       <TouchableOpacity
         key={String(index)}
         onPress={() => {
@@ -165,33 +146,32 @@ const countriescomponent = props => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.textInputStyle}
-          onChangeText={text => searchFilterFunction(text)}
-          value={search}
-          underlineColorAndroid="transparent"
-          placeholderTextColor={colors.GREY}
-          placeholder="Search countries"
-        />
-        <FlatList
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
-          // ItemSeparatorComponent={ItemSeparatorView}
-          renderItem={ItemView}
-          contentContainerStyle={{marginLeft: 10}}
-          // horizontal={true}
-          numColumns={3}
-        />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.textInputStyle}
+        onChangeText={text => searchFilterFunction(text)}
+        value={search}
+        underlineColorAndroid="transparent"
+        placeholderTextColor={colors.GREY}
+        placeholder="Search countries"
+      />
+      <FlatList
+        data={filteredDataSource}
+        keyExtractor={(item, index) => index.toString()}
+        // ItemSeparatorComponent={ItemSeparatorView}
+        renderItem={ItemView}
+        contentContainerStyle={{marginLeft: 10}}
+        // horizontal={true}
+        numColumns={3}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     // backgroundColor: 'white',
+    flex: 1,
   },
   itemStyle: {
     padding: 10,
