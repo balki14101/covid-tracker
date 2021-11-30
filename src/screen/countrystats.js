@@ -53,7 +53,7 @@ const countrystats = props => {
   });
 
   console.log('countryStats', countryStats);
-  var latestCount = null;
+  var latestCount = [];
 
   if (countryStats && countryStats.length > 0) {
     latestCount = countryStats[countryStats.length - 1];

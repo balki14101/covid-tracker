@@ -16,65 +16,7 @@ import {fetchCountrystats} from '../../reducer/covidtracker';
 import colors from '../../constants/colors';
 //dimensions
 import {Height, Width} from '../../constants/dimension';
-/*
-const countriescomponent = data => {
-  const countries = data.data;
-  console.log('countriescomponent props', countries);
-
-  const navigation = useNavigation();
-
-  const dispatch = useDispatch();
-
-  // console.log('countries component props', data);
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      }}>
-      {countries.map((item, index) => {
-        const CountryCode = item.ISO2.toLowerCase();
-        return (
-          <TouchableOpacity
-            key={String(index)}
-            onPress={() => {
-              navigation.navigate('countrystats', item);
-              dispatch(fetchCountrystats(item.Slug));
-            }}>
-            <View
-              style={{
-                alignItems: 'center',
-                width: 100,
-                marginTop: 8,
-                backgroundColor: colors.WHITE,
-                borderRadius: 8,
-                height: Height / 5.8,
-              }}>
-              <Image
-                source={{
-                  uri: `https://flagcdn.com/256x192/${CountryCode}.png`,
-                }}
-                style={{height: Height / 8, width: Width / 4}}
-                resizeMode="center"
-              />
-              <Text
-                style={{
-                  color: colors.BLACK,
-                  fontWeight: '500',
-                }}>
-                {item.Country}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  );
-};
-
-export default countriescomponent;
-*/
+import {ActivityIndicator} from 'react-native-paper';
 
 const countriescomponent = props => {
   const [search, setSearch] = useState('');
@@ -88,15 +30,15 @@ const countriescomponent = props => {
     };
   });
   console.log('countries props', props);
+  const propData = props.data;
 
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setMasterDataSource(props.data);
-    setFilteredDataSource(props.data);
-  }, []);
+    return setMasterDataSource(propData), setFilteredDataSource(propData);
+  });
 
   const searchFilterFunction = text => {
     // Check if searched text is not blank
@@ -105,8 +47,10 @@ const countriescomponent = props => {
       // Filter the masterDataSource
       // Update FilteredDataSource
       const newData = masterDataSource.filter(function (item) {
-        const itemData = item.Country;
-        const textData = text;
+        const itemData = item.Country
+          ? item.Country.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
       setFilteredDataSource(newData);
@@ -145,6 +89,7 @@ const countriescomponent = props => {
     );
   };
 
+  console.log('filteredDataSource', filteredDataSource);
   return (
     <View style={styles.container}>
       <TextInput
@@ -155,6 +100,7 @@ const countriescomponent = props => {
         placeholderTextColor={colors.GREY}
         placeholder="Search countries"
       />
+
       <FlatList
         data={filteredDataSource}
         keyExtractor={(item, index) => index.toString()}
