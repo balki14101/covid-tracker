@@ -13,12 +13,7 @@ const splashscreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={Logo}
-        style={{height: Height / 2, width: Width}}
-        resizeMode="center"
-      />
-      {/* <Text style={{fontSize: 40, fontWeight: '500'}}>splashscreen</Text> */}
+      <Image source={Logo} style={styles.logo} resizeMode="center" />
     </View>
   );
 };
@@ -30,5 +25,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.BLACK,
+  },
+  logo: {
+    height: Height / 2,
+    width: Width,
   },
 });

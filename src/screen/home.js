@@ -1,21 +1,24 @@
 import React, {useEffect} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import {fetchSummary, fetchCountries} from '../reducer/covidtracker';
 import {useSelector, useDispatch} from 'react-redux';
+import moment from 'moment';
+//components
 import Globalcomponent from './homecomponent/globalcomponent';
 import Countriescomponent from './homecomponent/countriescomponent';
+//colors
 import colors from '../constants/colors';
 import categories from '../constants/constants';
+//Icons
 import totalcases from '../assets/covid-white-1.png';
 import recovery from '../assets/vaccine-white.png';
 import newcases from '../assets/Vector-1.png';
 import death from '../assets/coffin-gradient.png';
-import moment from 'moment';
-import {FONT_SIZE_EXTRA_LARGE, FONT_SIZE_MEDIUM} from '../constants/fontsize';
-import {ScrollView} from 'react-native-gesture-handler';
-import {Height, Width} from '../constants/dimension';
-
 import Logo from '../assets/Vector.png';
+//fontSize
+import {FONT_SIZE_EXTRA_LARGE, FONT_SIZE_MEDIUM} from '../constants/fontsize';
+//Dimensions
+import {Height, Width} from '../constants/dimension';
 
 const home = () => {
   const {global, countries} = useSelector(state => {
@@ -73,33 +76,13 @@ const home = () => {
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: colors.BLACK}}>
-      <Image
-        source={Logo}
-        style={{height: Height / 16, width: Width, marginVertical: 10}}
-        resizeMode="center"
-      />
+      <Image source={Logo} style={styles.logo} resizeMode="center" />
       <ScrollView>
         <View style={{padding: 12}}>
-          <Text
-            style={{
-              color: colors.LIGHT_BLUE,
-              fontSize: FONT_SIZE_EXTRA_LARGE,
-              fontWeight: '500',
-              marginVertical: 4,
-            }}>
-            {'Global'}
-          </Text>
+          <Text style={styles.titleText}>{'Global'}</Text>
 
           <Globalcomponent data={globalData} />
-          <Text
-            style={{
-              color: colors.LIGHT_BLUE,
-              fontSize: FONT_SIZE_EXTRA_LARGE,
-              fontWeight: '500',
-              marginVertical: 4,
-            }}>
-            {'Countries'}
-          </Text>
+          <Text style={styles.titleText}>{'Countries'}</Text>
 
           <Countriescomponent data={countries} />
         </View>
@@ -109,3 +92,17 @@ const home = () => {
 };
 
 export default home;
+
+const styles = StyleSheet.create({
+  logo: {
+    height: Height / 16,
+    width: Width,
+    marginVertical: 10,
+  },
+  titleText: {
+    color: colors.LIGHT_BLUE,
+    fontSize: FONT_SIZE_EXTRA_LARGE,
+    fontWeight: '500',
+    marginVertical: 4,
+  },
+});
